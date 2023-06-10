@@ -19,7 +19,7 @@ import Signup from "views/IndexSections/Signup.js";
 import Examples from "views/IndexSections/Examples.js";
 import Download from "views/IndexSections/Download.js";
 
-export default function Index() {
+export default function Home() {
   React.useEffect(() => {
     document.body.classList.toggle("index-page");
     // Specify how to clean up after this effect:
@@ -29,21 +29,21 @@ export default function Index() {
   }, []);
   return (
     <>
-      <IndexNavbar />
+      {/* <IndexNavbar /> */}
       <div className="wrapper">
-        <PageHeader />
+        {/* <PageHeader /> */}
         <div className="main">
-          <Basics />
-          <Navbars />
-          <Tabs />
-          <Pagination />
-          <Notifications />
-          <Typography />
-          <JavaScript />
-          <NucleoIcons />
+          {/* <Basics /> */}
+          {/* <Navbars /> */}
+          {/* <Tabs /> */}
+          {/* <Pagination /> */}
+          {/* <Notifications /> */}
+          {/* <Typography /> */}
+          {/* <JavaScript /> */}
+          {/* <NucleoIcons /> */}
           <Signup />
-          <Examples />
-          <Download />
+
+
         </div>
         <Footer />
       </div>
