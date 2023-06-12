@@ -28,7 +28,7 @@ import PageHeader from "components/PageHeader/PageHeader";
 import { useNavigate } from "react-router-dom";
 import Footer from "components/Footer/Footer";
 let name,email,password;
-export default function Signup() {
+export default function Testing() {
   const [fullNameFocus, setFullNameFocus] = React.useState(false);
   const [emailFocus, setEmailFocus] = React.useState(false);
   const [emailError, setEmailError] = React.useState(false);
@@ -69,28 +69,7 @@ export default function Signup() {
   }
 
   return (
-    <div className="wrapper">
 
-    <div className="main">
-
-    <div className="section section-signup">
-      <IndexNavbar />
-      <Container>
-      <div className="squares square-1" />
-        <div className="squares square-2" />
-        <div className="squares square-3" />
-        <div className="squares square-4" />
-        <Row className="row-grid justify-content-between align-items-center">
-          <Col lg="5">
-            <h3 className="display-3 text-white">
-              Welcome to PAISAver :){" "}
-              <span className="text-white"></span>
-            </h3>
-            <p className="text-white mb-3">
-              <h3>Just a friendly neighbourhood paisa saver, sign up to SAVE MORE! </h3>
-            </p>
-
-          </Col>
           <Col className="mb-lg-auto" lg="6">
             <Card className="card-register">
               <CardHeader>
@@ -196,11 +175,6 @@ export default function Signup() {
               </CardFooter>
             </Card>
           </Col>
-        </Row>
-      </Container>
-      </div>
-    <Footer />
-  </div>
-    </div>
+
   );
 }

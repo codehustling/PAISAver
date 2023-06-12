@@ -2,8 +2,8 @@
 import React from "react";
 
 // core components
-import IndexNavbar from "components/Navbars/IndexNavbar.js";
-import PageHeader from "components/PageHeader/PageHeader.js";
+import IndexNavbar from "./IndexNavbar.js";
+import PageHeader from "./PageHeader.js";
 import Footer from "components/Footer/Footer.js";
 
 // sections for this page/view
@@ -19,7 +19,7 @@ import Signup from "views/IndexSections/Signup.js";
 import Examples from "views/IndexSections/Examples.js";
 import Download from "views/IndexSections/Download.js";
 
-export default function Main() {
+export default function Home() {
   React.useEffect(() => {
     document.body.classList.toggle("index-page");
     // Specify how to clean up after this effect:
@@ -41,7 +41,7 @@ export default function Main() {
           {/* <Typography /> */}
           {/* <JavaScript /> */}
           {/* <NucleoIcons /> */}
-          <Signup />
+
 
 
         </div>
