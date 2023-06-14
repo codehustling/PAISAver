@@ -1,6 +1,88 @@
+import { useState } from "react";
 import { Container } from "reactstrap";
-
+import {
+  Button,
+  Label,
+  FormGroup,
+  CustomInput,
+  Input,
+  Pagination,
+  PaginationItem,
+  PaginationLink,
+  InputGroupAddon,
+  InputGroupText,
+  InputGroup,
+  Row,
+  Col,
+} from "reactstrap";
 export default function PageHeader() {
+
+  const questions_list = ['1. what gives?','2. what gives?','3. what gives?','4. what gives?','5. what gives?','6. what gives?','7. what gives?']
+
+  
+
+  const [current_question_number,set_current_question_number] = useState(0)
+
+
+  const pagination_element =             <Pagination
+  className="pagination pagination-info"
+  listClassName="pagination-info"
+>
+  <PaginationItem>
+    <PaginationLink
+      aria-label="Previous"
+      href="#pablo"
+      onClick={(e) => e.preventDefault()}
+    >
+      <span aria-hidden={true}>
+        <i
+          aria-hidden={true}
+          className="tim-icons icon-double-left"
+        />
+      </span>
+    </PaginationLink>
+  </PaginationItem>
+  <PaginationItem>
+    <PaginationLink
+      href="#pablo"
+      onClick={(e) => e.preventDefault()}
+    >
+      1
+    </PaginationLink>
+  </PaginationItem>
+  <PaginationItem className="active">
+    <PaginationLink
+      href="#pablo"
+      onClick={(e) => e.preventDefault()}
+    >
+      2
+    </PaginationLink>
+  </PaginationItem>
+  <PaginationItem>
+    <PaginationLink
+      href="#pablo"
+      onClick={(e) => e.preventDefault()}
+    >
+      3
+    </PaginationLink>
+  </PaginationItem>
+  <PaginationItem>
+    <PaginationLink
+      aria-label="Next"
+      href="#pablo"
+      onClick={(e) => e.preventDefault()}
+    >
+      <span aria-hidden={true}>
+        <i
+          aria-hidden={true}
+          className="tim-icons icon-double-right"
+        />
+      </span>
+    </PaginationLink>
+  </PaginationItem>
+</Pagination>
+
+
 
   return (
     <div className="page-header header-filter">
@@ -12,11 +94,14 @@ export default function PageHeader() {
       <div className="squares square6" />
       <div className="squares square7" />
       <Container>
-        <div className="content-center brand" style={{ position: "fixed", top: "20%", left: "50%" }}>
-          <h6 className="h1-seo" style={{ fontSize: "20px", height: "5%", position: "relative", top: "1%", left: "50%" }}>PAISAver</h6>
+        <div style={{ position: "absolute", top: "20%", left: "37%" }}>
+        <h1  style={{ fontSize: "35px", height: "5%", position: "relative", top: "1%", left: "42%" }}>PAISAver</h1>
+
+          {/* <div className="main-center brand" style={{ position: "fixed", top: "20%", left: "50%" }}>
+          <h6 className="h1-seo" style={{ fontSize: "20px", height: "5%", position: "relative", top: "1%", left: "50%" }}>PAISAver</h6> */}
 
         </div>
-        <h6  style={{ fontSize: "17px", position: "absolute", top: "25%", left: "50%" }}>
+        <h6  style={{ fontSize: "17px", position: "absolute", top: "25%", left: "36%" }}>
             Finance made easy for peasants
           </h6>
         <dive className = "data-column-name" style = {{ fontSize: "2px", height: "50%", position: "absolute", top: "35%", left: "25%" }}>
@@ -50,7 +135,15 @@ export default function PageHeader() {
         </div>
       </div>
       
+      
+      <div style={{ fontSize: "15px", height: "25%", width : "90%", position: "absolute", top: "75%", left: "10%" }}>{questions_list[current_question_number]}</div>
 
+      <Col lg="10" sm="6" style={{ fontSize: "2px", height: "25%", width : "90%", position: "absolute", top: "80%", left: "10%" }} >
+              
+              <FormGroup>
+                <Input defaultValue="" placeholder="Type your question here and press enter" type="text" />
+              </FormGroup>
+            </Col>
       </Container>
     </div>
   );
