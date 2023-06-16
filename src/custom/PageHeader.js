@@ -24,65 +24,6 @@ export default function PageHeader() {
   const [current_question_number,set_current_question_number] = useState(0)
 
 
-  const pagination_element =             <Pagination
-  className="pagination pagination-info"
-  listClassName="pagination-info"
->
-  <PaginationItem>
-    <PaginationLink
-      aria-label="Previous"
-      href="#pablo"
-      onClick={(e) => e.preventDefault()}
-    >
-      <span aria-hidden={true}>
-        <i
-          aria-hidden={true}
-          className="tim-icons icon-double-left"
-        />
-      </span>
-    </PaginationLink>
-  </PaginationItem>
-  <PaginationItem>
-    <PaginationLink
-      href="#pablo"
-      onClick={(e) => e.preventDefault()}
-    >
-      1
-    </PaginationLink>
-  </PaginationItem>
-  <PaginationItem className="active">
-    <PaginationLink
-      href="#pablo"
-      onClick={(e) => e.preventDefault()}
-    >
-      2
-    </PaginationLink>
-  </PaginationItem>
-  <PaginationItem>
-    <PaginationLink
-      href="#pablo"
-      onClick={(e) => e.preventDefault()}
-    >
-      3
-    </PaginationLink>
-  </PaginationItem>
-  <PaginationItem>
-    <PaginationLink
-      aria-label="Next"
-      href="#pablo"
-      onClick={(e) => e.preventDefault()}
-    >
-      <span aria-hidden={true}>
-        <i
-          aria-hidden={true}
-          className="tim-icons icon-double-right"
-        />
-      </span>
-    </PaginationLink>
-  </PaginationItem>
-</Pagination>
-
-
 
   return (
     <div className="page-header header-filter">
