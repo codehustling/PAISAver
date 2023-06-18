@@ -35,12 +35,16 @@ export default function Home() {
     <>
       {/* <IndexNavbar /> */}
       <div className="wrapper">
-        <PageHeader />
+        <PageHeader />        
+
+        {/* <PaginationSection /> */}
+
         <div className="main">
           {/* <Basics /> */}
           {/* <Navbars /> */}
           {/* <Tabs /> */}
-          <PaginationSection />
+
+          
           {/* <Notifications /> */}
           {/* <Typography /> */}
           {/* <JavaScript /> */}

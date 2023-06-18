@@ -15,9 +15,16 @@ import {
   Row,
   Col,
 } from "reactstrap";
+
+
+
+//custom components
+import PaginationSection from "./Pagination.js"
+
+
 export default function PageHeader() {
 
-  const questions_list = ['1. what gives?','2. what gives?','3. what gives?','4. what gives?','5. what gives?','6. what gives?','7. what gives?']
+  const questions_list = ['1. what gives?','2. what gives?','3. what gives?','4. what gives?','5. what gives?','6. what gives?','7. what gives?','8. what gives?']
 
   
 
@@ -35,13 +42,21 @@ export default function PageHeader() {
       <div className="squares square6" />
       <div className="squares square7" />
       <Container>
-        <div style={{ position: "absolute", top: "20%", left: "37%" }}>
-        <h1  style={{ fontSize: "35px", height: "5%", position: "relative", top: "1%", left: "42%" }}>PAISAver</h1>
+        <div style={{ position: "absolute", top: "20%", left: "35%" }}>
+        <h1  style={{ fontSize: "35px", height: "5%", position: "relative", top: "1%", left: "40%" }}>PAISAver</h1>
+
 
           {/* <div className="main-center brand" style={{ position: "fixed", top: "20%", left: "50%" }}>
           <h6 className="h1-seo" style={{ fontSize: "20px", height: "5%", position: "relative", top: "1%", left: "50%" }}>PAISAver</h6> */}
 
         </div>
+        <div style={{ position: "absolute", bottom: "2%", right: "10%" }}>
+        <PaginationSection 
+          questions_list={questions_list}
+          current_question_number={current_question_number}
+          set_current_question_number={set_current_question_number} 
+          />
+          </div>
         <h6  style={{ fontSize: "17px", position: "absolute", top: "25%", left: "36%" }}>
             Finance made easy for peasants
           </h6>

@@ -25,28 +25,41 @@ import {
 
 export default function PaginationSection() {
 
+    const questions_list = ['1. what gives?','2. what gives?','3. what gives?','4. what gives?','5. what gives?','6. what gives?','7. what gives?','8. what gives?']
+
+    
+
+    const [current_question_number,set_current_question_number] = useState(0)
+
     const page_number_list = [1,2,3,4,5,6,7,8]
 
     const [current_page,set_current_page] = useState(0)
 
     const [center_page,set_center_page] = useState(1)
+    const active_list = ['','active']
+    const [current_active_page, set_current_active_page] = useState(0)
 
     function RightArrow(){
     if(current_page+1===page_number_list[page_number_list.length-1]){
 
       set_current_page(current_page) 
       set_center_page(center_page) 
+      set_current_question_number(current_question_number)
 
     }
     else if(current_page+1===page_number_list[page_number_list.length-3]){
       
       set_current_page(current_page+1) 
-      set_center_page(page_number_list.length-2)} 
-    else if(current_page+1!==page_number_list[center_page+1]){set_current_page(current_page+1)}  
+      set_center_page(page_number_list.length-2) 
+      set_current_question_number(current_question_number+1)
+    }
+    else if(current_page+1!==page_number_list[center_page+1]){
+      set_current_page(current_page+1)
+      set_current_question_number(current_question_number+1)}  
     else{
       set_current_page(current_page+1)
       set_center_page(center_page+3)
-    
+      set_current_question_number(current_question_number+1)
     }         
 
     }
@@ -54,15 +67,21 @@ export default function PaginationSection() {
       if(current_page-1< page_number_list[0]){
         set_current_page(0)
         set_center_page(1) 
+        set_current_question_number(0)
       }
       else if((current_page+1===page_number_list[2]) || (current_page===page_number_list[2] ) ){
         set_current_page(current_page-1)
         set_center_page(1)  
+        set_current_question_number(current_question_number-1)
       }
-      else if(current_page+1!==page_number_list[center_page-1]){set_current_page(current_page-1)}
+      else if(current_page+1!==page_number_list[center_page-1]){
+        set_current_page(current_page-1)
+        set_current_question_number(current_question_number-1)
+      }
       else{
         set_current_page(current_page-1)
         set_center_page(center_page-3)
+        set_current_question_number(current_question_number-1)
       }
 
 
@@ -72,11 +91,14 @@ export default function PaginationSection() {
 
     }
 
-    function Active_onclick(){
+    function Active_onclick(page_number){
+      set_current_page(page_number)
+      set_current_question_number(page_number)
 
     }
   const [pills, setPills] = React.useState(1);
   return (
+    
     <div className="section section-pagination">
       <img alt="..." className="path" src={require("assets/img/path4.png")} />
       <img
@@ -84,6 +106,8 @@ export default function PaginationSection() {
         className="path path1"
         src={require("assets/img/path5.png")}
       />
+            <div style={{ fontSize: "15px", height: "25%", width : "90%", position: "absolute", top: "75%", left: "10%" }}>{questions_list[current_question_number]}</div>
+
       <Container>
         <Row>
 
@@ -111,7 +135,7 @@ export default function PaginationSection() {
               <PaginationItem className={current_page+1===page_number_list[center_page-1]?"active":""}>
                 <PaginationLink
                   href="#pablo"
-                  onClick={(e) => e.preventDefault()}
+                  onClick={(e) => {e.preventDefault(); Active_onclick(page_number_list[center_page-1]-1) }}
                 >
                  {page_number_list[center_page-1]}
                 </PaginationLink>
@@ -119,7 +143,7 @@ export default function PaginationSection() {
               <PaginationItem className={current_page+1===page_number_list[center_page]?"active":""}>
                 <PaginationLink
                   href="#pablo"
-                  onClick={(e) => e.preventDefault()}
+                  onClick={(e) => {e.preventDefault(); Active_onclick(page_number_list[center_page]-1) }}
                 >
                   {page_number_list[center_page]}
                 </PaginationLink>
@@ -127,7 +151,7 @@ export default function PaginationSection() {
               <PaginationItem className={current_page+1===page_number_list[center_page+1]?"active":""}>
                 <PaginationLink
                   href="#pablo"
-                  onClick={(e) => e.preventDefault()}
+                  onClick={(e) => {e.preventDefault(); Active_onclick(page_number_list[center_page+1]-1) }}
                 >
                   {page_number_list[center_page+1]}
                 </PaginationLink>
