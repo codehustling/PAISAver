@@ -17,21 +17,24 @@ import Home from "custom/Home.js";
 import Signup from "custom/Signup";
 import Main from "custom/Main"
 import Testing from "custom/Testing";
+import { CookiesProvider } from "react-cookie";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
   <BrowserRouter>
-    <Routes>
-      <Route path ="/home" element ={<Home />} />
-      <Route path ="/signup" element ={<Signup />} />
-      <Route path ="/main" element ={<Main />} />
-      <Route path ="/testing" element ={<Testing />} />
-      <Route path="/components" element={<Index />} />
-      <Route path="/landing-page" element={<LandingPage />} />
-      <Route path="/register-page" element={<RegisterPage />} />
-      <Route path="/profile-page" element={<ProfilePage />} />
-      <Route path="*" element={<Navigate to="/components" replace />} />
-    </Routes>
+    <CookiesProvider>
+      <Routes>
+        <Route path ="/home" element ={<Home />} />
+        <Route path ="/signup" element ={<Signup />} />
+        <Route path ="/main" element ={<Main />} />
+        <Route path ="/testing" element ={<Testing />} />
+        <Route path="/components" element={<Index />} />
+        <Route path="/landing-page" element={<LandingPage />} />
+        <Route path="/register-page" element={<RegisterPage />} />
+        <Route path="/profile-page" element={<ProfilePage />} />
+        <Route path="*" element={<Navigate to="/components" replace />} />
+      </Routes>
+    </CookiesProvider>
   </BrowserRouter>
 );

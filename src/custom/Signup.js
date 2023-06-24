@@ -1,5 +1,5 @@
 
-import React from "react";
+import { useEffect, useState } from "react";
 import classnames from "classnames";
 import { Link } from "react-router-dom";
 // reactstrap components
@@ -27,28 +27,39 @@ import IndexNavbar from "./IndexNavbar";
 import PageHeader from "components/PageHeader/PageHeader";
 import { useNavigate } from "react-router-dom";
 import Footer from "components/Footer/Footer";
-let name,email,password;
+import { initRegister } from "CommonStuff/Login/register.ts";
+import { useCookies } from 'react-cookie';
+
 export default function Signup() {
-  const [fullNameFocus, setFullNameFocus] = React.useState(false);
-  const [emailFocus, setEmailFocus] = React.useState(false);
-  const [emailError, setEmailError] = React.useState(false);
-  const [passwordFocus, setPasswordFocus] = React.useState(false);
+  const [cookie, setCookie] = useCookies(['user']);
+
+  const [fullNameFocus, setFullNameFocus] = useState(false);
+  const [emailFocus, setEmailFocus] = useState(false);
+  const [emailError, setEmailError] = useState(false);
+  const [passwordFocus, setPasswordFocus] = useState(false);
+
+  const [name, setName] = useState(false);
+  const [email, setEmail] = useState(false);
+  const [password, setPassword] = useState(false);
+
+  
   let navigate = useNavigate();
 
-  React.useEffect(() => {
+  useEffect(() => {
     document.body.classList.toggle("index-page");
-    // Specify how to clean up after this effect:
+
     return function cleanup() {
       document.body.classList.toggle("index-page");
     };
   }, []);
+
   function handleEmail(e){
     setEmailFocus(false);
 
     let emailText=e.target.value;
     const re=/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
 
-    if(!re.test(emailText))
+    if(emailText!=="" && !re.test(emailText))
       setEmailError(true)
     else
       setEmailError(false)
@@ -60,8 +71,17 @@ export default function Signup() {
       console.log(name,email,password)
       if(password&&email&&name)
       {
-        //TODO add code here to send request to backend with the registration details
-        navigate("/home")
+        initRegister({username:email,name:name,password:password})
+        .then((resp)=>{
+          console.log(resp)
+            setCookie('session-cookie', resp['session-cookie'], { path: '/' });
+            navigate("/home")
+        })
+        .catch((err)=>{
+          console.log(err)
+
+        })
+
       }
     }
     
@@ -118,7 +138,7 @@ export default function Signup() {
                       type="text"
                       onFocus={(e) => setFullNameFocus(true)}
                       onBlur={(e) => setFullNameFocus(false)}
-                      onChange={(e)=>name=e.target.value}
+                      onChange={(e)=>setName(e.target.value)}
                     />
                     
                   </InputGroup>
@@ -144,7 +164,7 @@ export default function Signup() {
                       type="email"
                       onFocus={(e) => setEmailFocus(true)}
                       onBlur={handleEmail}
-                      onChange={(e)=>email=e.target.value}
+                      onChange={(e)=>setEmail(e.target.value)}
                     />
                   </InputGroup>
                   <InputGroup
@@ -161,10 +181,10 @@ export default function Signup() {
                       id="tooltip1"
                       style={{"font-size": "18px","height": "50px"}}
                       placeholder="Password"
-                      type="text"
+                      type="password"
                       onFocus={(e) => setPasswordFocus(true)}
                       onBlur={(e) => setPasswordFocus(false)}
-                      onChange={(e)=>password=e.target.value}
+                      onChange={(e)=>setPassword(e.target.value)}
                     />
                     <UncontrolledTooltip
                       delay={0}
@@ -190,6 +210,7 @@ export default function Signup() {
                 <Button 
                   className="btn-round" color="primary" size="lg"
                   onClick={handleRegister}
+                  disabled={password&&email&&name?false:true}
                 >
                   Get Started
                 </Button>
