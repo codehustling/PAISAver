@@ -123,7 +123,7 @@ export default function PaginationSection({questions_list, current_question_numb
                 <PaginationLink
                   aria-label="Previous"
                   href="#pablo"
-                  onClick={(e) => {e.preventDefault(); LeftArrow();handleButtonClick()}  }
+                  onClick={(e) => {e.preventDefault(); LeftArrow();handleButtonClick(current_question_number)}  }
                 >
                   <span aria-hidden={true}>
                     <i
@@ -136,7 +136,7 @@ export default function PaginationSection({questions_list, current_question_numb
               <PaginationItem className={current_page+1===page_number_list[center_page-1]?"active":""}>
                 <PaginationLink
                   href="#pablo"
-                  onClick={(e) => {e.preventDefault(); Active_onclick(page_number_list[center_page-1]-1);handleButtonClick() }}
+                  onClick={(e) => {e.preventDefault(); Active_onclick(page_number_list[center_page-1]-1);handleButtonClick(current_question_number) }}
                 >
                  {page_number_list[center_page-1]}
                 </PaginationLink>
@@ -144,7 +144,7 @@ export default function PaginationSection({questions_list, current_question_numb
               <PaginationItem className={current_page+1===page_number_list[center_page]?"active":""}>
                 <PaginationLink
                   href="#pablo"
-                  onClick={(e) => {e.preventDefault(); Active_onclick(page_number_list[center_page]-1);handleButtonClick() }}
+                  onClick={(e) => {e.preventDefault(); Active_onclick(page_number_list[center_page]-1);handleButtonClick(current_question_number) }}
                 >
                   {page_number_list[center_page]}
                 </PaginationLink>
@@ -152,7 +152,7 @@ export default function PaginationSection({questions_list, current_question_numb
               <PaginationItem className={current_page+1===page_number_list[center_page+1]?"active":""}>
                 <PaginationLink
                   href="#pablo"
-                  onClick={(e) => {e.preventDefault(); Active_onclick(page_number_list[center_page+1]-1);handleButtonClick() }}
+                  onClick={(e) => {e.preventDefault(); Active_onclick(page_number_list[center_page+1]-1);handleButtonClick(current_question_number) }}
                 >
                   {page_number_list[center_page+1]}
                 </PaginationLink>
@@ -161,7 +161,7 @@ export default function PaginationSection({questions_list, current_question_numb
                 <PaginationLink
                   aria-label="Next"
                   href="#pablo"
-                  onClick={(e) => {e.preventDefault(); RightArrow();handleButtonClick()}  }
+                  onClick={(e) => {e.preventDefault(); RightArrow();handleButtonClick(current_question_number)}  }
                 >
                   <span aria-hidden={true}>
                     <i

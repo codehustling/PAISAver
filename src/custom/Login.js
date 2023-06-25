@@ -55,6 +55,8 @@ export default function Login() {
   const [password, setPassword] = useState('');
   let navigate = useNavigate();
 
+  const[login_message,set_login_message] = useState('')
+  
 
   function handleLogin(){
 
@@ -70,6 +72,7 @@ export default function Login() {
         })
         .catch((err)=>{
           console.log(err)
+          set_login_message(err.message)
 
         })
 
@@ -130,6 +133,7 @@ export default function Login() {
               <div className="text-center text-muted mb-4 mt-3">
                 <small>Or login in with credentials</small>
               </div>
+              {login_message}
               <Form role="form">
                 <FormGroup className="mb-3">
                   <InputGroup

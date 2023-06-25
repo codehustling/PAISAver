@@ -31,15 +31,15 @@ export default function PageHeader() {
 
   const [current_question_number,set_current_question_number] = useState(0)
   const [inputValue, setInputValue] = useState('');
-  const [submittedValue, setSubmittedValue] = useState('');
+  
 
   const handleInputChange = (e) => {
     setInputValue(e.target.value);
   };
 
-  const handleButtonClick = () => {
-    setInputValue(submittedValue);
-    // setInputValue(answers_list[current_question_number]);
+  const handleButtonClick = (current_question_number) => {
+    // setInputValue(submittedValue);
+    setInputValue(answers_list[current_question_number]);
   };
 
 
@@ -56,7 +56,7 @@ export default function PageHeader() {
     if (e.key === 'Enter') {
       
       replace_to_answers(e.target.value, current_question_number);
-      e.target.value = ''
+      // e.target.value = ''
     }
   }
   return (
