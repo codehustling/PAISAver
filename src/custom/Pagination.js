@@ -23,7 +23,7 @@ import {
 
 
 
-export default function PaginationSection({questions_list, current_question_number,set_current_question_number,handleButtonClick}) {
+export default function PaginationSection({questions_list, current_question_number,set_current_question_number,set_answer_number_list,answer_number_list}) {
 
     // const questions_list = ['1. what gives?','2. what gives?','3. what gives?','4. what gives?','5. what gives?','6. what gives?','7. what gives?','8. what gives?']
 
@@ -31,7 +31,7 @@ export default function PaginationSection({questions_list, current_question_numb
 
     // const [current_question_number,set_current_question_number] = useState(0)
 
-    const page_number_list = [1,2,3,4,5,6,7,8]
+    const page_number_list = [1,2,3,4,5,6,7]
 
     const [current_page,set_current_page] = useState(0)
 
@@ -45,7 +45,6 @@ export default function PaginationSection({questions_list, current_question_numb
       set_current_page(current_page) 
       set_center_page(center_page) 
       set_current_question_number(current_question_number)
-      
 
     }
     else if(current_page+1===page_number_list[page_number_list.length-3]){
@@ -123,7 +122,7 @@ export default function PaginationSection({questions_list, current_question_numb
                 <PaginationLink
                   aria-label="Previous"
                   href="#pablo"
-                  onClick={(e) => {e.preventDefault(); LeftArrow();handleButtonClick(current_question_number)}  }
+                  onClick={(e) => {e.preventDefault(); LeftArrow()}  }
                 >
                   <span aria-hidden={true}>
                     <i
@@ -136,7 +135,7 @@ export default function PaginationSection({questions_list, current_question_numb
               <PaginationItem className={current_page+1===page_number_list[center_page-1]?"active":""}>
                 <PaginationLink
                   href="#pablo"
-                  onClick={(e) => {e.preventDefault(); Active_onclick(page_number_list[center_page-1]-1);handleButtonClick(current_question_number) }}
+                  onClick={(e) => {e.preventDefault(); Active_onclick(page_number_list[center_page-1]-1) }}
                 >
                  {page_number_list[center_page-1]}
                 </PaginationLink>
@@ -144,7 +143,7 @@ export default function PaginationSection({questions_list, current_question_numb
               <PaginationItem className={current_page+1===page_number_list[center_page]?"active":""}>
                 <PaginationLink
                   href="#pablo"
-                  onClick={(e) => {e.preventDefault(); Active_onclick(page_number_list[center_page]-1);handleButtonClick(current_question_number) }}
+                  onClick={(e) => {e.preventDefault(); Active_onclick(page_number_list[center_page]-1) }}
                 >
                   {page_number_list[center_page]}
                 </PaginationLink>
@@ -152,7 +151,7 @@ export default function PaginationSection({questions_list, current_question_numb
               <PaginationItem className={current_page+1===page_number_list[center_page+1]?"active":""}>
                 <PaginationLink
                   href="#pablo"
-                  onClick={(e) => {e.preventDefault(); Active_onclick(page_number_list[center_page+1]-1);handleButtonClick(current_question_number) }}
+                  onClick={(e) => {e.preventDefault(); Active_onclick(page_number_list[center_page+1]-1) }}
                 >
                   {page_number_list[center_page+1]}
                 </PaginationLink>
@@ -161,7 +160,7 @@ export default function PaginationSection({questions_list, current_question_numb
                 <PaginationLink
                   aria-label="Next"
                   href="#pablo"
-                  onClick={(e) => {e.preventDefault(); RightArrow();handleButtonClick(current_question_number)}  }
+                  onClick={(e) => {e.preventDefault(); RightArrow()}  }
                 >
                   <span aria-hidden={true}>
                     <i

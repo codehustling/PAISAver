@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Container } from "reactstrap";
 import {
   Button,
@@ -21,44 +21,54 @@ import {
 //custom components
 import PaginationSection from "./Pagination.js"
 import Login from "./Login.js"
+import { sendDetails } from "CommonStuff/Calculation/sendDetails.ts";
 
 export default function PageHeader() {
 
-  const questions_list = ['1. what gives?','2. what gives?','3. what gives?','4. what gives?','5. what gives?','6. what gives?','7. what gives?','8. what gives?']
+  const questions_list = ['1. Salary:','2. Salary growth rate:','3. Return on investment(ROT) %:','4. Loan principal amount:','5. Loan tenure:','6. Loan interest rate:','7. Inflation rate:']
 
-  const [answers_list, set_answers_list] = useState(['','','','','','','',''])
-  
+  const [answers_list, set_answers_list] = useState(["","","","","","",""])
+  const [currentInput, setCurrentInput] = useState("")
 
   const [current_question_number,set_current_question_number] = useState(0)
-  const [inputValue, setInputValue] = useState('');
-  
-
-  const handleInputChange = (e) => {
-    setInputValue(e.target.value);
-  };
-
-  const handleButtonClick = (current_question_number) => {
-    // setInputValue(submittedValue);
-    setInputValue(answers_list[current_question_number]);
-  };
 
 
-  function replace_to_answers(value,current_question_number){
+useEffect(()=>{
+  setCurrentInput(answers_list[current_question_number])
+},[current_question_number])
+
+  function replace_to_answers(e){
+    setCurrentInput(e.target.value)
     let temp = answers_list
-    temp[current_question_number] = value
-    set_answers_list(temp)
+    temp[current_question_number] = e.target.value
     console.log(answers_list)
+    set_answers_list(temp)
+  }
+  function submitDetails(){
+    console.log(answers_list)
+    let flag=true;
+    answers_list.forEach((v)=>{
+      if(v==="")
+        flag=false;
+    })
 
-  
+    if(flag)
+    {
+      const payload={
+          salary : answers_list[0],
+          salary_growth_rate : answers_list[1],
+          returns_on_investement : answers_list[2],
+          loan_principal_amount : answers_list[3],
+          loan_tenure : answers_list[4],
+          loan_interest_rate : answers_list[5],
+          inflation_rate : answers_list[6],
+      }
+      sendDetails(payload)
+    }
+    else{alert("enter all fields")}
   }
     
-  const handleKeyDown = (e) => {
-    if (e.key === 'Enter') {
-      
-      replace_to_answers(e.target.value, current_question_number);
-      // e.target.value = ''
-    }
-  }
+
   return (
     
     <div className="page-header header-filter">
@@ -87,16 +97,15 @@ export default function PageHeader() {
           questions_list={questions_list}
           current_question_number={current_question_number}
           set_current_question_number={set_current_question_number} 
-          handleButtonClick = {handleButtonClick}
           />
           </div>
         <h6  style={{ fontSize: "17px", position: "absolute", top: "25%", left: "36%" }}>
             Finance made easy for peasants
           </h6>
-        <dive className = "data-column-name" style = {{ fontSize: "2px", height: "50%", position: "absolute", top: "35%", left: "25%" }}>
+        <div className = "data-column-name" style = {{ fontSize: "2px", height: "50%", position: "absolute", top: "35%", left: "25%" }}>
             <h4>What to do?</h4>
 
-        </dive>
+        </div>
         <div className="data-column" style={{ fontSize: "2px", height: "50%", position: "absolute", top: "35%", right: "25%" }}>
             <h4>What to expect?</h4>
         </div>
@@ -104,8 +113,8 @@ export default function PageHeader() {
 
 
 
-        <div class="card" style={{ fontSize: "2px", height: "25%", width : "25%", position: "absolute", top: "40%", left: "15%" }}>
-        <div class="card-body">
+        <div className="card" style={{ fontSize: "2px", height: "25%", width : "25%", position: "absolute", top: "40%", left: "15%" }}>
+        <div className="card-body">
         <div >
           <h5>Explain quantum computing in simple terms</h5>
           <h5>Got any creative ideas for a 10 year old’s birthday?</h5>
@@ -114,8 +123,8 @@ export default function PageHeader() {
         </div>
       </div>
 
-      <div class="card" style={{ fontSize: "2px", height: "25%", width : "25%", position: "absolute", top: "40%", right: "15%" }}>
-        <div class="card-body">
+      <div className="card" style={{ fontSize: "2px", height: "25%", width : "25%", position: "absolute", top: "40%", right: "15%" }}>
+        <div className="card-body">
         <div >
           <h5>Explain quantum computing in simple terms</h5>
           <h5>Got any creative ideas for a 10 year old’s birthday?</h5>
@@ -130,12 +139,8 @@ export default function PageHeader() {
       <Col lg="10" sm="6" style={{ fontSize: "2px", height: "25%", width : "90%", position: "absolute", top: "80%", left: "10%" }} >
               
               <FormGroup>
-                {/* <Input defaultValue="" placeholder="Type your question here and press enter" type="text"  onChange={(e)=>replace_to_answers(e.target.value,current_question_number)} /> */}
-                {/* <Input defaultValue=""  placeholder="Type your question here and press enter" type="text"  onKeyDown={handleKeyDown} /> */}
-                <Input defaultValue=""  placeholder="Type your question here and press enter" type="text"  value={inputValue}  onChange={handleInputChange} onKeyDown={handleKeyDown}  />
-             
-             
-             
+                <Input autoFocus value={currentInput} placeholder="Type your question here and press enter" type="text"  onChange={replace_to_answers} />
+                <Button onClick={submitDetails}>Submit</Button>
               </FormGroup>
             </Col>
       </Container>
