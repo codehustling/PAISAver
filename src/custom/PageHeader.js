@@ -30,8 +30,17 @@ export default function PageHeader() {
   
 
   const [current_question_number,set_current_question_number] = useState(0)
+  const [inputValue, setInputValue] = useState('');
+  const [submittedValue, setSubmittedValue] = useState('');
 
+  const handleInputChange = (e) => {
+    setInputValue(e.target.value);
+  };
 
+  const handleButtonClick = () => {
+    setInputValue(submittedValue);
+    // setInputValue(answers_list[current_question_number]);
+  };
 
 
   function replace_to_answers(value,current_question_number){
@@ -39,10 +48,17 @@ export default function PageHeader() {
     temp[current_question_number] = value
     set_answers_list(temp)
     console.log(answers_list)
+
   
   }
     
-
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      
+      replace_to_answers(e.target.value, current_question_number);
+      e.target.value = ''
+    }
+  }
   return (
     
     <div className="page-header header-filter">
@@ -71,6 +87,7 @@ export default function PageHeader() {
           questions_list={questions_list}
           current_question_number={current_question_number}
           set_current_question_number={set_current_question_number} 
+          handleButtonClick = {handleButtonClick}
           />
           </div>
         <h6  style={{ fontSize: "17px", position: "absolute", top: "25%", left: "36%" }}>
@@ -113,7 +130,12 @@ export default function PageHeader() {
       <Col lg="10" sm="6" style={{ fontSize: "2px", height: "25%", width : "90%", position: "absolute", top: "80%", left: "10%" }} >
               
               <FormGroup>
-                <Input defaultValue="" placeholder="Type your question here and press enter" type="text"  onChange={(e)=>replace_to_answers(e.target.value,current_question_number)} />
+                {/* <Input defaultValue="" placeholder="Type your question here and press enter" type="text"  onChange={(e)=>replace_to_answers(e.target.value,current_question_number)} /> */}
+                {/* <Input defaultValue=""  placeholder="Type your question here and press enter" type="text"  onKeyDown={handleKeyDown} /> */}
+                <Input defaultValue=""  placeholder="Type your question here and press enter" type="text"  value={inputValue}  onChange={handleInputChange} onKeyDown={handleKeyDown}  />
+             
+             
+             
               </FormGroup>
             </Col>
       </Container>

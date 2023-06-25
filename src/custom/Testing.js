@@ -1,138 +1,134 @@
-
-import React from "react";
-import { Link, useNavigate } from "react-router-dom";
-// reactstrap components
+import { useState } from "react";
+import { Container } from "reactstrap";
 import {
   Button,
-  Collapse,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
-  UncontrolledDropdown,
-  NavbarBrand,
-  Navbar,
-  NavItem,
-  NavLink,
-  Nav,
-  Container,
+  Label,
+  FormGroup,
+  CustomInput,
+  Input,
+  Pagination,
+  PaginationItem,
+  PaginationLink,
+  InputGroupAddon,
+  InputGroupText,
+  InputGroup,
   Row,
   Col,
-  UncontrolledTooltip,
 } from "reactstrap";
 
+
+
 //custom components
+import PaginationSection from "./Pagination.js"
 import Login from "./Login.js"
 
-export default function IndexNavbar() {
-  const [collapseOpen, setCollapseOpen] = React.useState(false);
-  const [collapseOut, setCollapseOut] = React.useState("");
-  const [color, setColor] = React.useState("navbar-transparent");
-  React.useEffect(() => {
-    window.addEventListener("scroll", changeColor);
-    return function cleanup() {
-      window.removeEventListener("scroll", changeColor);
-    };
-  }, []);
-  const changeColor = () => {
-    if (
-      document.documentElement.scrollTop > 99 ||
-      document.body.scrollTop > 99
-    ) {
-      setColor("bg-info");
-    } else if (
-      document.documentElement.scrollTop < 100 ||
-      document.body.scrollTop < 100
-    ) {
-      setColor("navbar-transparent");
-    }
-  };
-  const toggleCollapse = () => {
-    document.documentElement.classList.toggle("nav-open");
-    setCollapseOpen(!collapseOpen);
-  };
-  const onCollapseExiting = () => {
-    setCollapseOut("collapsing-out");
-  };
-  const onCollapseExited = () => {
-    setCollapseOut("");
-  };
-  const scrollToDownload = () => {
-    document
-      .getElementById("download-section")
-      .scrollIntoView({ behavior: "smooth" });
-  };
-  //custom functions
+export default function PageHeader() {
 
-  let navigate = useNavigate();
+  const questions_list = ['1. what gives?','2. what gives?','3. what gives?','4. what gives?','5. what gives?','6. what gives?','7. what gives?','8. what gives?']
 
-
-
-  return (
-
-    <Navbar className={"fixed-top " + color} color-on-scroll="100" expand="lg">
-      <Container>
-        <div className="navbar-translate">
-          <NavbarBrand to="/" tag={Link} id="navbar-brand">
-            <span>PAISAver </span>
-            Finance made easy for peasants
-          </NavbarBrand>
-          <button
-            aria-expanded={collapseOpen}
-            className="navbar-toggler navbar-toggler"
-            onClick={toggleCollapse}
-          >
-            <span className="navbar-toggler-bar bar1" />
-            <span className="navbar-toggler-bar bar2" />
-            <span className="navbar-toggler-bar bar3" />
-          </button>
-        </div>
-        <Collapse
-          className={"justify-content-end " + collapseOut}
-          navbar
-          isOpen={collapseOpen}
-          onExiting={onCollapseExiting}
-          onExited={onCollapseExited}
-        >
-          <div className="navbar-collapse-header">
-            <Row>
-              <Col className="collapse-brand" xs="6">
-                <a href="#pablo" onClick={(e) => e.preventDefault()}>
-                  PAISAver
-                </a>
-              </Col>
-              <Col className="collapse-close text-right" xs="6">
-                <button
-                  aria-expanded={collapseOpen}
-                  className="navbar-toggler"
-                  onClick={toggleCollapse}
-                >
-                  <i className="tim-icons icon-simple-remove" />
-                </button>
-              </Col>
-            </Row>
-          </div>
-          <Nav navbar>
+  const [answers_list, set_answers_list] = useState(['','','','','','','',''])
   
 
-            <NavItem>
+  const [current_question_number,set_current_question_number] = useState(0)
 
-              <Login /> 
+
+
+  function replace_to_answers(value,current_question_number){
+    let temp = answers_list
+    temp[current_question_number] = value
+    set_answers_list(temp)
+    console.log(answers_list)
+
+  
+  }
+    
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      
+      replace_to_answers(e.target.value, current_question_number);
+      e.target.value = ''
+    }
+  }
+  return (
+    
+    <div className="page-header header-filter">
+      <div className="squares square1" />
+      <div className="squares square2" />
+      <div className="squares square3" />
+      <div className="squares square4" />
+      <div className="squares square5" />
+      <div className="squares square6" />
+      <div className="squares square7" />
+      
+      <Container>
+
+        <div style={{ position: "absolute", top: "20%", left: "35%" }}>
+        <h1  style={{ fontSize: "35px", height: "5%", position: "relative", top: "1%", left: "40%" }}>PAISAver</h1>
+
+
+          {/* <div className="main-center brand" style={{ position: "fixed", top: "20%", left: "50%" }}>
+          <h6 className="h1-seo" style={{ fontSize: "20px", height: "5%", position: "relative", top: "1%", left: "50%" }}>PAISAver</h6> */}
+
+        </div>
+        
+        <div style={{ position: "absolute", bottom: "2%", right: "10%" }}>
+        
+        <PaginationSection 
+          questions_list={questions_list}
+          current_question_number={current_question_number}
+          set_current_question_number={set_current_question_number} 
+          answers_list = {answers_list}
+          set_answers_list = {set_answers_list}
+          />
+          </div>
+        <h6  style={{ fontSize: "17px", position: "absolute", top: "25%", left: "36%" }}>
+            Finance made easy for peasants
+          </h6>
+        <dive className = "data-column-name" style = {{ fontSize: "2px", height: "50%", position: "absolute", top: "35%", left: "25%" }}>
+            <h4>What to do?</h4>
+
+        </dive>
+        <div className="data-column" style={{ fontSize: "2px", height: "50%", position: "absolute", top: "35%", right: "25%" }}>
+            <h4>What to expect?</h4>
+        </div>
+
+
+
+
+        <div class="card" style={{ fontSize: "2px", height: "25%", width : "25%", position: "absolute", top: "40%", left: "15%" }}>
+        <div class="card-body">
+        <div >
+          <h5>Explain quantum computing in simple terms</h5>
+          <h5>Got any creative ideas for a 10 year old’s birthday?</h5>
+          <h5>How do I make an HTTP request in Javascript?</h5>
+        </div>
+        </div>
+      </div>
+
+      <div class="card" style={{ fontSize: "2px", height: "25%", width : "25%", position: "absolute", top: "40%", right: "15%" }}>
+        <div class="card-body">
+        <div >
+          <h5>Explain quantum computing in simple terms</h5>
+          <h5>Got any creative ideas for a 10 year old’s birthday?</h5>
+          <h5>How do I make an HTTP request in Javascript?</h5>
+        </div>
+        </div>
+      </div>
+      
+      
+      <div style={{ fontSize: "15px", height: "25%", width : "90%", position: "absolute", top: "75%", left: "10%" }}>{questions_list[current_question_number]}</div>
+
+      <Col lg="10" sm="6" style={{ fontSize: "2px", height: "25%", width : "90%", position: "absolute", top: "80%", left: "10%" }} >
               
-            </NavItem>
-            <NavItem>
-            <Button
-               
-                color="primary" 
-                onClick={()=>navigate('/signup')}
-              >
-                <i className="tim-icons icon-spaceship" /> Signup
-
-
-              </Button>
-              </NavItem>
-          </Nav>
-        </Collapse>
+              <FormGroup>
+                {/* <Input defaultValue="" placeholder="Type your question here and press enter" type="text"  onChange={(e)=>replace_to_answers(e.target.value,current_question_number)} /> */}
+                <Input defaultValue=""  placeholder="Type your question here and press enter" type="text"  onKeyDown={handleKeyDown} />
+             
+             
+             
+              </FormGroup>
+            </Col>
       </Container>
-    </Navbar>
+    </div>
   );
 }
