@@ -1,7 +1,7 @@
 import cookie from 'react-cookie'
 
 export const BASE_URL = "http://localhost:8000"
-export async function HttpPOST(base_url:string, endpoint: string, payload:Object){
+export function HttpPOST(base_url:string, endpoint: string, payload:Object){
     var formdata = new FormData();
     
     Object.keys(payload).forEach(key => formdata.append(key, payload[key]));
@@ -10,7 +10,9 @@ export async function HttpPOST(base_url:string, endpoint: string, payload:Object
         method: 'POST',
         body: formdata,
     }
-    ).then((resp) => {return resp.json()})
-    .catch((err) => {return Promise.reject(err)})
-
-}
+    ).then(response => {
+        return response.json().then(json => {
+          return response.ok ? json : Promise.reject(json);
+        });
+      });
+    }
