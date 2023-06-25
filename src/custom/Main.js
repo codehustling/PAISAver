@@ -23,6 +23,7 @@ import Download from "views/IndexSections/Download.js";
 //custom components
 import PaginationSection from "./Pagination.js"
 
+
 export default function Home() {
   React.useEffect(() => {
     document.body.classList.toggle("index-page");
@@ -33,7 +34,7 @@ export default function Home() {
   }, []);
   return (
     <>
-      {/* <IndexNavbar /> */}
+      <IndexNavbar />
       <div className="wrapper">
         <PageHeader />        
 

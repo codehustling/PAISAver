@@ -23,7 +23,7 @@ import {
 
 
 
-export default function PaginationSection({questions_list, current_question_number,set_current_question_number}) {
+export default function PaginationSection({questions_list, current_question_number,set_current_question_number,set_answer_number_list,answer_number_list}) {
 
     // const questions_list = ['1. what gives?','2. what gives?','3. what gives?','4. what gives?','5. what gives?','6. what gives?','7. what gives?','8. what gives?']
 

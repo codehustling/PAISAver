@@ -38,9 +38,11 @@ export default function Signup() {
   const [emailError, setEmailError] = useState(false);
   const [passwordFocus, setPasswordFocus] = useState(false);
 
-  const [name, setName] = useState(false);
-  const [email, setEmail] = useState(false);
-  const [password, setPassword] = useState(false);
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [agree_terms, setAgree_terms] = useState(false);
+  
 
   
   let navigate = useNavigate();
@@ -94,7 +96,7 @@ export default function Signup() {
     <div className="main">
 
     <div className="section section-signup">
-      <IndexNavbar />
+      {/* <IndexNavbar /> */}
       <Container>
       <div className="squares square-1" />
         <div className="squares square-2" />
@@ -196,7 +198,15 @@ export default function Signup() {
                   </InputGroup>
                   <FormGroup check className="text-left">
                     <Label check>
-                      <Input type="checkbox" />
+                      <Input type="checkbox" 
+                      value = 'off'
+                      onChange={(e)=>{if(agree_terms===false){
+                                         setAgree_terms(true);}
+                                         else{setAgree_terms(false)}
+
+                  }}
+        
+                      />
                       <span className="form-check-sign" />I agree to the{" "}
                       <a href="#pablo" onClick={(e) => e.preventDefault()}>
                         terms and conditions
@@ -210,7 +220,7 @@ export default function Signup() {
                 <Button 
                   className="btn-round" color="primary" size="lg"
                   onClick={handleRegister}
-                  disabled={password&&email&&name?false:true}
+                  disabled={password&&email&&name&&agree_terms&&!emailError?false:true}
                 >
                   Get Started
                 </Button>

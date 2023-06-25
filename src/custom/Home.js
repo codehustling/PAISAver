@@ -2,15 +2,15 @@
 import React from "react";
 
 // core components
-import IndexNavbar from "components/Navbars/IndexNavbar.js";
-import PageHeader from "components/PageHeader/PageHeader.js";
+import IndexNavbar from "./IndexNavbar.js";
+import PageHeader from "./PageHeader.js";
 import Footer from "components/Footer/Footer.js";
 
 // sections for this page/view
 import Basics from "views/IndexSections/Basics.js";
 import Navbars from "views/IndexSections/Navbars.js";
 import Tabs from "views/IndexSections/Tabs.js";
-import Pagination from "views/IndexSections/Pagination.js";
+// import Pagination from "views/IndexSections/Pagination.js";
 import Notifications from "views/IndexSections/Notifications.js";
 import Typography from "views/IndexSections/Typography.js";
 import JavaScript from "views/IndexSections/JavaScript.js";
@@ -19,7 +19,11 @@ import Signup from "views/IndexSections/Signup.js";
 import Examples from "views/IndexSections/Examples.js";
 import Download from "views/IndexSections/Download.js";
 
-export default function Main() {
+
+//custom components
+import PaginationSection from "./Pagination.js"
+
+export default function Home() {
   React.useEffect(() => {
     document.body.classList.toggle("index-page");
     // Specify how to clean up after this effect:
@@ -31,17 +35,21 @@ export default function Main() {
     <>
       {/* <IndexNavbar /> */}
       <div className="wrapper">
-        <PageHeader />
+        <PageHeader />        
+
+        {/* <PaginationSection /> */}
+
         <div className="main">
           {/* <Basics /> */}
           {/* <Navbars /> */}
           {/* <Tabs /> */}
-          {/* <Pagination /> */}
+
+          
           {/* <Notifications /> */}
           {/* <Typography /> */}
           {/* <JavaScript /> */}
           {/* <NucleoIcons /> */}
-          <Signup />
+
 
 
         </div>

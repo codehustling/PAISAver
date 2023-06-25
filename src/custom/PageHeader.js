@@ -20,19 +20,31 @@ import {
 
 //custom components
 import PaginationSection from "./Pagination.js"
-
+import Login from "./Login.js"
 
 export default function PageHeader() {
 
   const questions_list = ['1. what gives?','2. what gives?','3. what gives?','4. what gives?','5. what gives?','6. what gives?','7. what gives?','8. what gives?']
 
+  const [answers_list, set_answers_list] = useState(['','','','','','','',''])
   
 
   const [current_question_number,set_current_question_number] = useState(0)
 
 
 
+
+  function replace_to_answers(value,current_question_number){
+    let temp = answers_list
+    temp[current_question_number] = value
+    set_answers_list(temp)
+    console.log(answers_list)
+  
+  }
+    
+
   return (
+    
     <div className="page-header header-filter">
       <div className="squares square1" />
       <div className="squares square2" />
@@ -41,7 +53,9 @@ export default function PageHeader() {
       <div className="squares square5" />
       <div className="squares square6" />
       <div className="squares square7" />
+      
       <Container>
+
         <div style={{ position: "absolute", top: "20%", left: "35%" }}>
         <h1  style={{ fontSize: "35px", height: "5%", position: "relative", top: "1%", left: "40%" }}>PAISAver</h1>
 
@@ -50,7 +64,9 @@ export default function PageHeader() {
           <h6 className="h1-seo" style={{ fontSize: "20px", height: "5%", position: "relative", top: "1%", left: "50%" }}>PAISAver</h6> */}
 
         </div>
+        
         <div style={{ position: "absolute", bottom: "2%", right: "10%" }}>
+        
         <PaginationSection 
           questions_list={questions_list}
           current_question_number={current_question_number}
@@ -97,7 +113,7 @@ export default function PageHeader() {
       <Col lg="10" sm="6" style={{ fontSize: "2px", height: "25%", width : "90%", position: "absolute", top: "80%", left: "10%" }} >
               
               <FormGroup>
-                <Input defaultValue="" placeholder="Type your question here and press enter" type="text" />
+                <Input defaultValue="" placeholder="Type your question here and press enter" type="text"  onChange={(e)=>replace_to_answers(e.target.value,current_question_number)} />
               </FormGroup>
             </Col>
       </Container>

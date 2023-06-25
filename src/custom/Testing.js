@@ -1,181 +1,138 @@
 
 import React from "react";
-import { useState } from "react";
-import classnames from "classnames";
+import { Link, useNavigate } from "react-router-dom";
 // reactstrap components
 import {
-  Badge,
+  Button,
+  Collapse,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem,
+  UncontrolledDropdown,
+  NavbarBrand,
+  Navbar,
   NavItem,
   NavLink,
   Nav,
-  Pagination,
-  PaginationItem,
-  PaginationLink,
-  Progress,
   Container,
   Row,
   Col,
+  UncontrolledTooltip,
 } from "reactstrap";
 
+//custom components
+import Login from "./Login.js"
 
-
-
-
-
-
-export default function PaginationSection() {
-
-    const questions_list = ['1. what gives?','2. what gives?','3. what gives?','4. what gives?','5. what gives?','6. what gives?','7. what gives?','8. what gives?']
-
-    
-
-    const [current_question_number,set_current_question_number] = useState(0)
-
-    const page_number_list = [1,2,3,4,5,6,7,8]
-
-    const [current_page,set_current_page] = useState(0)
-
-    const [center_page,set_center_page] = useState(1)
-    const active_list = ['','active']
-    const [current_active_page, set_current_active_page] = useState(0)
-
-    function RightArrow(){
-    if(current_page+1===page_number_list[page_number_list.length-1]){
-
-      set_current_page(current_page) 
-      set_center_page(center_page) 
-      set_current_question_number(current_question_number)
-
+export default function IndexNavbar() {
+  const [collapseOpen, setCollapseOpen] = React.useState(false);
+  const [collapseOut, setCollapseOut] = React.useState("");
+  const [color, setColor] = React.useState("navbar-transparent");
+  React.useEffect(() => {
+    window.addEventListener("scroll", changeColor);
+    return function cleanup() {
+      window.removeEventListener("scroll", changeColor);
+    };
+  }, []);
+  const changeColor = () => {
+    if (
+      document.documentElement.scrollTop > 99 ||
+      document.body.scrollTop > 99
+    ) {
+      setColor("bg-info");
+    } else if (
+      document.documentElement.scrollTop < 100 ||
+      document.body.scrollTop < 100
+    ) {
+      setColor("navbar-transparent");
     }
-    else if(current_page+1===page_number_list[page_number_list.length-3]){
-      
-      set_current_page(current_page+1) 
-      set_center_page(page_number_list.length-2) 
-      set_current_question_number(current_question_number+1)
-    }
-    else if(current_page+1!==page_number_list[center_page+1]){
-      set_current_page(current_page+1)
-      set_current_question_number(current_question_number+1)}  
-    else{
-      set_current_page(current_page+1)
-      set_center_page(center_page+3)
-      set_current_question_number(current_question_number+1)
-    }         
+  };
+  const toggleCollapse = () => {
+    document.documentElement.classList.toggle("nav-open");
+    setCollapseOpen(!collapseOpen);
+  };
+  const onCollapseExiting = () => {
+    setCollapseOut("collapsing-out");
+  };
+  const onCollapseExited = () => {
+    setCollapseOut("");
+  };
+  const scrollToDownload = () => {
+    document
+      .getElementById("download-section")
+      .scrollIntoView({ behavior: "smooth" });
+  };
+  //custom functions
 
-    }
-    function LeftArrow(){
-      if(current_page-1< page_number_list[0]){
-        set_current_page(0)
-        set_center_page(1) 
-        set_current_question_number(0)
-      }
-      else if((current_page+1===page_number_list[2]) || (current_page===page_number_list[2] ) ){
-        set_current_page(current_page-1)
-        set_center_page(1)  
-        set_current_question_number(current_question_number-1)
-      }
-      else if(current_page+1!==page_number_list[center_page-1]){
-        set_current_page(current_page-1)
-        set_current_question_number(current_question_number-1)
-      }
-      else{
-        set_current_page(current_page-1)
-        set_center_page(center_page-3)
-        set_current_question_number(current_question_number-1)
-      }
+  let navigate = useNavigate();
 
 
 
-      
-           
-
-    }
-
-    function Active_onclick(page_number){
-      set_current_page(page_number)
-      set_current_question_number(page_number)
-
-    }
-  const [pills, setPills] = React.useState(1);
   return (
-    
-    <div className="section section-pagination">
-      <img alt="..." className="path" src={require("assets/img/path4.png")} />
-      <img
-        alt="..."
-        className="path path1"
-        src={require("assets/img/path5.png")}
-      />
-            <div style={{ fontSize: "15px", height: "25%", width : "90%", position: "absolute", top: "75%", left: "10%" }}>{questions_list[current_question_number]}</div>
 
+    <Navbar className={"fixed-top " + color} color-on-scroll="100" expand="lg">
       <Container>
-        <Row>
+        <div className="navbar-translate">
+          <NavbarBrand to="/" tag={Link} id="navbar-brand">
+            <span>PAISAver </span>
+            Finance made easy for peasants
+          </NavbarBrand>
+          <button
+            aria-expanded={collapseOpen}
+            className="navbar-toggler navbar-toggler"
+            onClick={toggleCollapse}
+          >
+            <span className="navbar-toggler-bar bar1" />
+            <span className="navbar-toggler-bar bar2" />
+            <span className="navbar-toggler-bar bar3" />
+          </button>
+        </div>
+        <Collapse
+          className={"justify-content-end " + collapseOut}
+          navbar
+          isOpen={collapseOpen}
+          onExiting={onCollapseExiting}
+          onExited={onCollapseExited}
+        >
+          <div className="navbar-collapse-header">
+            <Row>
+              <Col className="collapse-brand" xs="6">
+                <a href="#pablo" onClick={(e) => e.preventDefault()}>
+                  PAISAver
+                </a>
+              </Col>
+              <Col className="collapse-close text-right" xs="6">
+                <button
+                  aria-expanded={collapseOpen}
+                  className="navbar-toggler"
+                  onClick={toggleCollapse}
+                >
+                  <i className="tim-icons icon-simple-remove" />
+                </button>
+              </Col>
+            </Row>
+          </div>
+          <Nav navbar>
+  
 
-          <Col md="6">
-         
- 
-            <Pagination
-              className="pagination pagination-info"
-              listClassName="pagination-info"
-            >
-              <PaginationItem>
-                <PaginationLink
-                  aria-label="Previous"
-                  href="#pablo"
-                  onClick={(e) => {e.preventDefault(); LeftArrow()}  }
-                >
-                  <span aria-hidden={true}>
-                    <i
-                      aria-hidden={true}
-                      className="tim-icons icon-double-left"
-                    />
-                  </span>
-                </PaginationLink>
-              </PaginationItem>
-              <PaginationItem className={current_page+1===page_number_list[center_page-1]?"active":""}>
-                <PaginationLink
-                  href="#pablo"
-                  onClick={(e) => {e.preventDefault(); Active_onclick(page_number_list[center_page-1]-1) }}
-                >
-                 {page_number_list[center_page-1]}
-                </PaginationLink>
-              </PaginationItem>
-              <PaginationItem className={current_page+1===page_number_list[center_page]?"active":""}>
-                <PaginationLink
-                  href="#pablo"
-                  onClick={(e) => {e.preventDefault(); Active_onclick(page_number_list[center_page]-1) }}
-                >
-                  {page_number_list[center_page]}
-                </PaginationLink>
-              </PaginationItem>
-              <PaginationItem className={current_page+1===page_number_list[center_page+1]?"active":""}>
-                <PaginationLink
-                  href="#pablo"
-                  onClick={(e) => {e.preventDefault(); Active_onclick(page_number_list[center_page+1]-1) }}
-                >
-                  {page_number_list[center_page+1]}
-                </PaginationLink>
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationLink
-                  aria-label="Next"
-                  href="#pablo"
-                  onClick={(e) => {e.preventDefault(); RightArrow()}  }
-                >
-                  <span aria-hidden={true}>
-                    <i
-                      aria-hidden={true}
-                      className="tim-icons icon-double-right"
-                    />
-                  </span>
-                </PaginationLink>
-              </PaginationItem>
-            </Pagination>
-            <br />
-          </Col>
-        </Row>
-        <br />
+            <NavItem>
+
+              <Login /> 
+              
+            </NavItem>
+            <NavItem>
+            <Button
+               
+                color="primary" 
+                onClick={()=>navigate('/signup')}
+              >
+                <i className="tim-icons icon-spaceship" /> Signup
+
+
+              </Button>
+              </NavItem>
+          </Nav>
+        </Collapse>
       </Container>
-    </div>
+    </Navbar>
   );
 }

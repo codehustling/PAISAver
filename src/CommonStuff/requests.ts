@@ -11,5 +11,6 @@ export async function HttpPOST(base_url:string, endpoint: string, payload:Object
         body: formdata,
     }
     ).then((resp) => {return resp.json()})
+    .catch((err) => {return Promise.reject(err)})
 
 }
