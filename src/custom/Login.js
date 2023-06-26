@@ -1,5 +1,5 @@
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import classnames from "classnames";
 // react plugin used to create datetimepicker
 import ReactDatetime from "react-datetime";
@@ -25,7 +25,7 @@ import {
   Label,
   UncontrolledCarousel,
 } from "reactstrap";
-import { initLogin } from "CommonStuff/Login/login.ts";
+import { initLogin, initLogout } from "CommonStuff/Login/login.ts";
 
 const carouselItems = [
   {
@@ -46,7 +46,7 @@ const carouselItems = [
 ];
 // style={{position: "absolute", top: "1%", right: "1%"}}
 export default function Login() {
-  const [cookie, setCookie] = useCookies(['user']);
+  const [cookies, setCookie, removeCookie] = useCookies(['session-cookie']);
   const [formModal, setFormModal] = useState(false);
   const [emailFocus, setEmailFocus] = useState(false);
   const [passwordFocus, setPasswordFocus] = useState(false);
@@ -56,7 +56,13 @@ export default function Login() {
   let navigate = useNavigate();
 
   const[login_message,set_login_message] = useState('')
+  const [loggedIn, setLoggedIn] = useState(false)
   
+  useEffect(()=>{
+    let temp = cookies["session-cookie"]
+    if(temp)
+      setLoggedIn(true)
+  },[])
 
   function handleLogin(){
 
@@ -68,7 +74,9 @@ export default function Login() {
         .then((resp)=>{
           console.log(resp)
             setCookie('session-cookie', resp['session-cookie'], { path: '/' });
-            navigate("/home")
+            setFormModal(false)
+            setLoggedIn(true)
+            navigate("/main")
         })
         .catch((err)=>{
           console.log(err)
@@ -78,9 +86,19 @@ export default function Login() {
 
       }
     }
-    
-
+  
   }
+  function handleLogout(){
+    initLogout().then((resp)=>{
+      console.log(resp.message)
+      removeCookie('session-cookie',{path:'/'});
+      setLoggedIn(false);
+    })
+    .catch((err)=>{
+      console.log(err)
+    })
+  }
+  
 
 
   return (
@@ -92,9 +110,13 @@ export default function Login() {
 
 
           <Col md="4">
-            <Button color="success" onClick={() => setFormModal(true)}>
+            {!loggedIn&&<Button color="success" onClick={() => setFormModal(true)}>
               Login
-            </Button>
+            </Button>}
+            {loggedIn&&<Button color="success" onClick={handleLogout}>
+              Logout
+            </Button>}
+            {}
           </Col>
 
           {/* Start Form Modal */}

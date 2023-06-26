@@ -77,7 +77,7 @@ export default function Signup() {
         .then((resp)=>{
           console.log(resp)
             setCookie('session-cookie', resp['session-cookie'], { path: '/' });
-            navigate("/home")
+            navigate("/main")
         })
         .catch((err)=>{
           console.log(err)

@@ -9,3 +9,8 @@ export function initLogin(payload:Register){
     return HttpPOST(BASE_URL,"login",payload)
 
 }
+
+export function initLogout(){
+    return HttpPOST(BASE_URL,"logout",{},true)
+
+}

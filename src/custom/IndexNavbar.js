@@ -114,22 +114,20 @@ export default function IndexNavbar() {
           <Nav navbar>
   
 
-            <NavItem>
-
-              <Login /> 
-              
-            </NavItem>
-            <NavItem>
-            <Button
-               
-                color="primary" 
-                onClick={()=>navigate('/signup')}
-              >
-                <i className="tim-icons icon-spaceship" /> Signup
-
-
-              </Button>
+           {<> 
+              <NavItem>
+                <Login /> 
               </NavItem>
+
+              <NavItem>
+                <Button
+                  color="primary" 
+                  onClick={()=>navigate('/signup')}
+                >
+                  <i className="tim-icons icon-spaceship" /> Signup
+                </Button>
+              </NavItem>
+            </>}
           </Nav>
         </Collapse>
       </Container>
