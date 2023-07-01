@@ -17,6 +17,7 @@ import Home from "custom/Home.js";
 import Signup from "custom/Signup";
 import Main from "custom/Main"
 import Testing from "custom/Testing";
+import Results from "custom/Results";
 import ProfilePageNew from "custom/examples/ProfilePage"
 import { CookiesProvider } from "react-cookie";
 
@@ -29,6 +30,7 @@ root.render(
         <Route path ="/home" element ={<Home />} />
         <Route path ="/signup" element ={<Signup />} />
         <Route path ="/main" element ={<Main />} />
+        <Route path="/results" element={<Results />} />
         <Route path ="/testing" element ={<Testing />} />
         <Route path="/components" element={<Index />} />
         <Route path="/landing-page" element={<LandingPage />} />

@@ -24,13 +24,13 @@ export function HttpPOST(base_url:string, endpoint: string, payload:Object,inclu
 
 export function HttpGET(base_url:string, endpoint: string, payload: Object, include_cookie:boolean=true){
 
-  let endpoint_extension = endpoint + '?'
+  let endpoint_extension = endpoint + '/?'
 
-  Object.keys(payload).forEach(key => endpoint_extension + key+'='+ payload[key]);
+  Object.keys(payload).forEach((key,index) => {endpoint_extension=endpoint_extension + key+'='+ payload[key]; 
+});
 
   
-
-  return fetch(`${base_url}/${endpoint_extension}/`, {
+  return fetch(`${base_url}/${endpoint_extension}`, {
       method: 'GET',
       credentials: include_cookie?'include':'same-origin'
   }
