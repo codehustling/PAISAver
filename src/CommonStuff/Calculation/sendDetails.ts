@@ -10,7 +10,5 @@ interface Details{
     inflation_rate : string,
 }
 export function sendDetails(payload:Details,include_cookie=true){
-    HttpPOST(BASE_URL,"user_inputs",payload,include_cookie).then(()=>
-        console.log("request successssssssssssssssssss")
-    ).catch((err)=>console.log(err.message))
+    return HttpPOST(BASE_URL,"user_inputs",payload,include_cookie)
 }

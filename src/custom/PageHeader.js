@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Container } from "reactstrap";
+import { useNavigate } from "react-router-dom";
 import {
   Button,
   Label,
@@ -31,7 +32,7 @@ export default function PageHeader() {
   const [currentInput, setCurrentInput] = useState("")
 
   const [current_question_number,set_current_question_number] = useState(0)
-
+  let navigate = useNavigate();
 
 useEffect(()=>{
   setCurrentInput(answers_list[current_question_number])
@@ -63,7 +64,10 @@ useEffect(()=>{
           loan_interest_rate : answers_list[5],
           inflation_rate : answers_list[6],
       }
-      sendDetails(payload)
+      sendDetails(payload).then(()=>
+      {console.log("request successssssssssssssssssss"); 
+      navigate('/results')}
+      ).catch((err)=>console.log(err.message))
     }
     else{alert("enter all fields")}
   }

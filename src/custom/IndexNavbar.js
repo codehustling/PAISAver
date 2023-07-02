@@ -72,7 +72,7 @@ export default function IndexNavbar() {
     <Navbar className={"fixed-top " + color} color-on-scroll="100" expand="lg">
       <Container>
         <div className="navbar-translate">
-          <NavbarBrand to="/" tag={Link} id="navbar-brand">
+          <NavbarBrand to="/home" tag={Link} id="navbar-brand">
             <span>PAISAver </span>
             Finance made easy for peasants
           </NavbarBrand>

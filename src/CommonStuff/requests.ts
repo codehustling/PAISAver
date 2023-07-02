@@ -22,7 +22,7 @@ export function HttpPOST(base_url:string, endpoint: string, payload:Object,inclu
 
 
 
-export function HttpGET(base_url:string, endpoint: string, payload: Object, include_cookie:boolean=true){
+export function HttpGET(base_url:string, endpoint: string, payload: Object={}, include_cookie:boolean=true){
 
   let endpoint_extension = endpoint + '/?'
 
